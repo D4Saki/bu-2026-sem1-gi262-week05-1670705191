@@ -13,7 +13,6 @@ namespace Assignment
         public int[] LCT01_SelectionSortAscending(int[] numbers)
         {
             int[] result = (int[])numbers.Clone();
-
             int n = result.Length;
 
             for (int i = 0; i < n - 1; i++)
@@ -28,12 +27,14 @@ namespace Assignment
                     }
                 }
 
-                (result[i], result[minIndex]) = (result[minIndex], result[i]);
+                int temp = result[i];
+                result[i] = result[minIndex];
+                result[minIndex] = temp;
             }
 
-            foreach (var n_ in result)
+            foreach (int number in result)
             {
-                Debug.Log(n_);
+                Debug.Log(number);
             }
 
             return result;
@@ -42,7 +43,6 @@ namespace Assignment
         public int[] LCT02_BubbleSortAscending(int[] numbers)
         {
             int[] result = (int[])numbers.Clone();
-
             int n = result.Length;
 
             for (int i = 0; i < n - 1; i++)
@@ -58,9 +58,9 @@ namespace Assignment
                 }
             }
 
-            foreach (var n_ in result)
+            foreach (int number in result)
             {
-                Debug.Log(n_);
+                Debug.Log(number);
             }
 
             return result;
@@ -69,7 +69,6 @@ namespace Assignment
         public int[] LCT03_InsertionSortAscending(int[] numbers)
         {
             int[] result = (int[])numbers.Clone();
-
             int n = result.Length;
 
             for (int i = 1; i < n; i++)
@@ -86,9 +85,9 @@ namespace Assignment
                 result[j + 1] = key;
             }
 
-            foreach (var n_ in result)
+            foreach (int number in result)
             {
-                Debug.Log(n_);
+                Debug.Log(number);
             }
 
             return result;
@@ -101,7 +100,6 @@ namespace Assignment
         public int[] AS01_SelectionSortDescending(int[] numbers)
         {
             int[] result = (int[])numbers.Clone();
-
             int n = result.Length;
 
             for (int i = 0; i < n - 1; i++)
@@ -116,12 +114,14 @@ namespace Assignment
                     }
                 }
 
-                (result[i], result[maxIndex]) = (result[maxIndex], result[i]);
+                int temp = result[i];
+                result[i] = result[maxIndex];
+                result[maxIndex] = temp;
             }
 
-            foreach (var n_ in result)
+            foreach (int number in result)
             {
-                Debug.Log(n_);
+                Debug.Log(number);
             }
 
             return result;
@@ -130,7 +130,6 @@ namespace Assignment
         public int[] AS02_BubbleSortDescending(int[] numbers)
         {
             int[] result = (int[])numbers.Clone();
-
             int n = result.Length;
 
             for (int i = 0; i < n - 1; i++)
@@ -146,9 +145,9 @@ namespace Assignment
                 }
             }
 
-            foreach (var n_ in result)
+            foreach (int number in result)
             {
-                Debug.Log(n_);
+                Debug.Log(number);
             }
 
             return result;
@@ -157,7 +156,6 @@ namespace Assignment
         public int[] AS03_InsertionSortDescending(int[] numbers)
         {
             int[] result = (int[])numbers.Clone();
-
             int n = result.Length;
 
             for (int i = 1; i < n; i++)
@@ -174,9 +172,9 @@ namespace Assignment
                 result[j + 1] = key;
             }
 
-            foreach (var n_ in result)
+            foreach (int number in result)
             {
-                Debug.Log(n_);
+                Debug.Log(number);
             }
 
             return result;
@@ -186,6 +184,7 @@ namespace Assignment
         {
             int[] result = (int[])numbers.Clone();
 
+            // Sort from largest to smallest
             for (int i = 0; i < result.Length - 1; i++)
             {
                 int maxIndex = i;
@@ -198,12 +197,15 @@ namespace Assignment
                     }
                 }
 
-                (result[i], result[maxIndex]) = (result[maxIndex], result[i]);
+                int temp = result[i];
+                result[i] = result[maxIndex];
+                result[maxIndex] = temp;
             }
 
+            // Find the first value different from the largest
             for (int i = 1; i < result.Length; i++)
             {
-                if (result[i] != result[0])
+                if (result[i] < result[0])
                 {
                     Debug.Log(result[i]);
                     return result[i];
@@ -219,13 +221,15 @@ namespace Assignment
 
         public int EX01_FindLongestConsecutiveSequence(int[] numbers)
         {
-            if (numbers.Length == 0)
+            if (numbers == null || numbers.Length == 0)
             {
+                Debug.Log("The longest consecutive sequence is: 0");
                 return 0;
             }
 
             int[] result = (int[])numbers.Clone();
 
+            // Sort from smallest to largest
             for (int i = 0; i < result.Length - 1; i++)
             {
                 int minIndex = i;
@@ -238,7 +242,9 @@ namespace Assignment
                     }
                 }
 
-                (result[i], result[minIndex]) = (result[minIndex], result[i]);
+                int temp = result[i];
+                result[i] = result[minIndex];
+                result[minIndex] = temp;
             }
 
             int currentStreak = 1;
@@ -248,10 +254,10 @@ namespace Assignment
             {
                 if (result[i] == result[i - 1])
                 {
+                    // Ignore duplicate numbers
                     continue;
                 }
-
-                if (result[i] == result[i - 1] + 1)
+                else if (result[i] == result[i - 1] + 1)
                 {
                     currentStreak++;
 
